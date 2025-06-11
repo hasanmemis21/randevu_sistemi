@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Tüm Randevular</h2>
+<a href="{{ url_for('logout') }}" class="btn btn-danger mb-3">Çıkış Yap</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Tarih</th>
+            <th>Saat</th>
+            <th>Mesaj</th>
+            <th>Durum</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment['date'] }}</td>
+            <td>{{ appointment['time'] }}</td>
+            <td>{{ appointment['message'] }}</td>
+            <td>{{ appointment['status'] }}</td>
+            <td>
+                <a href="{{ url_for('update_appointment', appointment_id=appointment['_id'], action='approve') }}" class="btn btn-success btn-sm">Onayla</a>
+                <a href="{{ url_for('update_appointment', appointment_id=appointment['_id'], action='reject') }}" class="btn btn-danger btn-sm">Reddet</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

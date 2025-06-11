@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Randevu Sistemi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="carousel">
+        <div class="carousel-container">
+            {% for i in range(1,10) %}
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='images/' ~ i ~ '.jpg') }}" alt="Image {{ i }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="overlay-form">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Basit otomatik slider -->
+    <script>
+        let index = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const total = items.length;
+
+        function showSlide() {
+            items.forEach((item, i) => {
+                item.style.display = (i === index) ? 'block' : 'none';
+            });
+            index = (index + 1) % total;
+        }
+
+        showSlide();
+        setInterval(showSlide, 3000); // her 3 saniyede bir değiş
+    </script>
+</body>
+</html>

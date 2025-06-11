@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Randevu Listesi</h2>
+
+    {% if role == 'user' %}
+    <a href="{{ url_for('routes.create_appointment') }}" class="btn btn-primary my-3">Yeni Randevu Oluştur</a>
+    {% endif %}
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Tarih</th>
+                <th>Saat</th>
+                <th>Mesaj</th>
+                <th>Durum</th>
+                <th>İşlem</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in appointments %}
+            <tr>
+                <td>{{ app.date }}</td>
+                <td>{{ app.time }}</td>
+                <td>{{ app.message }}</td>
+                <td>{{ app.status }}</td>
+                <td>
+                {% if role == 'admin' and app.status == 'pending' %}
+                    <a href="{{ url_for('routes.approve_appointment', index=loop.index0) }}" class="btn btn-success btn-sm">Onayla</a>
+                    <a href="{{ url_for('routes.reject_appointment', index=loop.index0) }}" class="btn btn-danger btn-sm">Reddet</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('routes.logout') }}" class="btn btn-secondary mt-3">Çıkış Yap</a>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="appointment-form">
+    <h2>💖 Yeni Randevu Oluştur 💖</h2>
+    <form method="POST">
+        <div class="input-group">
+            <label for="date">Tarih:</label>
+            <input type="date" name="date" id="date" required>
+        </div>
+
+        <div class="input-group">
+            <label for="time">Saat:</label>
+            <input type="time" name="time" id="time" required>
+        </div>
+
+        <div class="input-group">
+            <label for="message">Mesaj:</label>
+            <textarea name="message" id="message" rows="3" placeholder="Mesajınızı yazın..." required></textarea>
+        </div>
+
+        <button type="submit">Kaydet</button>
+    </form>
+</div>
+{% endblock %}
